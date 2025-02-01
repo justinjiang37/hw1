@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+using namespace std;
 
 #include "ulliststr.h"
 
@@ -9,5 +10,13 @@
 
 int main(int argc, char* argv[])
 {
+  ULListStr dat;
+  dat.push_front("1");
+  dat.push_front("2");
+  dat.push_front("3");
 
+  // cout << dat.get(0) << " " << dat.get(1) << " " << dat.get(2) << endl;
+  // prints: 8 7 9
+  // cout << dat.size() << endl;  // prints 3 since there are 3 strings stored
+  // cout << dat.getValAtLoc(0) << endl;
 }
