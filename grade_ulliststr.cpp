@@ -7,6 +7,8 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <iostream>
+using namespace std;
 
 typedef int Seed;
 
@@ -106,9 +108,14 @@ testing::AssertionResult checkListContent(ULListStr *const list, std::vector<std
 	std::stringstream failureMessage;
 	failureMessage << "List content mismatch: ";
 	bool contentMismatch = false;
-
+  
+  // cout << list->size() << endl;
 	for(size_t index = 0; index < list->size(); ++index)
 	{
+    // cout << "current ind: " << index << endl;
+    // cout << "list val: " << list->get(index) << endl;
+    // cout << "hi245" << endl;
+    // cout << "expected val: " << expectedValues[index] << endl;
 		if(list->get(index) != expectedValues[index])
 		{
 			failureMessage << "Expected value at index " << index << " was " << expectedValues[index] << ", but element was actually " << list->get(index) << std::endl;

@@ -32,7 +32,6 @@ size_t ULListStr::size() const
   *   - MUST RUN in O(1)
   */
 void ULListStr::push_back(const std::string& val) {
-  cout << "HI" << endl;
   if (size_ == 0) {
     Item* n = new Item();
     n->val[0] = val;
@@ -40,7 +39,6 @@ void ULListStr::push_back(const std::string& val) {
     size_ = 1;
     head_ = n;
     tail_ = n;
-    cout << "HI" << endl;
   }
   else {
     // list is full
@@ -71,7 +69,9 @@ void ULListStr::push_back(const std::string& val) {
 void ULListStr::pop_back() {
   // If only one element in the list
   if (size_ == 1) {
-    delete head_;
+    Item* temp = head_;
+    head_ = nullptr;
+    delete temp;
     size_ = 0;
   } else {
    // If pops the last element in tail item
@@ -85,8 +85,14 @@ void ULListStr::pop_back() {
     // There is more than one element in the tail item
     else if (tail_->last > 1) {
       // remove item at index last-1
-      tail_->last -= 1;
+      // cout << tail_->last << endl;
+      // cout << tail_->first << endl;
+      // cout << size_ << endl;
+      tail_->last--;
       size_--;
+      // cout << tail_->last << endl;
+      // cout << tail_->first << endl;
+      // cout << size_ << endl;
     } 
   }
 }
@@ -134,12 +140,12 @@ void ULListStr::push_front(const std::string& val) {
       head_->first--;
       size_++;
       // cout << head_->val[8] << endl;
-      cout << head_->val[8] << endl;
-      cout << head_->val[9] << endl;
-      cout << tail_->val[0] << endl;
-      cout << "location: " << *getValAtLoc(0) << endl;
-      cout << "location: " << *getValAtLoc(1) << endl;
-      cout << "location: " << *getValAtLoc(2) << endl;
+      // cout << head_->val[8] << endl;
+      // cout << head_->val[9] << endl;
+      // cout << tail_->val[0] << endl;
+      // cout << "location: " << *getValAtLoc(0) << endl;
+      // cout << "location: " << *getValAtLoc(1) << endl;
+      // cout << "location: " << *getValAtLoc(2) << endl;
     }
   }
 }
@@ -150,7 +156,9 @@ void ULListStr::push_front(const std::string& val) {
   */
 void ULListStr::pop_front() {
   if (size_ == 1) {
-    delete tail_;
+    Item* temp = head_;
+    head_ = nullptr;
+    delete temp;
     size_ = 0;
   } else {
     // If pops the last element in head item
@@ -192,14 +200,19 @@ std::string const & ULListStr::front() const {
   *   - MUST RUN in O(n) 
   */
 std::string* ULListStr::getValAtLoc(size_t loc) const {
+  // cout << "loc: " << loc << endl;
   Item* temp_Item = head_;
   int ind = head_->first;
   int total = 0;
   int count = 0;
+
+  // cout << "before index: " << ind << endl;
   while (count < loc) {
+    // cout << "Current Count: " << count << endl;
+    // cout << "Current index: " << ind << endl;
     // if reached last element of an item
-    if (ind == temp_Item->last-1) {
-      // cout << "Hi";
+    if (ind-total == temp_Item->last-1) {
+      // cout << "Hi" << endl;
       total += 10;
       temp_Item = temp_Item->next;
       // index out of bounds
@@ -211,8 +224,8 @@ std::string* ULListStr::getValAtLoc(size_t loc) const {
     count++;
   }
 
-  // cout << "i: " << ind << endl;
-  // cout << "t: " << total << endl;
+  // cout << "index: " << ind << endl;
+  // cout << "total: " << total << endl;
   return &temp_Item->val[ind-total];
 }
 
@@ -227,10 +240,14 @@ void ULListStr::set(size_t loc, const std::string& val)
 
 std::string& ULListStr::get(size_t loc)
 {
+  // cout << "hi" << endl;
   std::string* ptr = getValAtLoc(loc);
+  // cout << "hi111" << endl;
+  // cout << ptr << endl;
   if(ptr == NULL){
     throw std::invalid_argument("Bad location");
   }
+  // cout << *ptr << endl;
   return *ptr;
 }
 
